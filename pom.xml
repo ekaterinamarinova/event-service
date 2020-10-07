@@ -39,24 +39,6 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <version>3.3.0</version>
                 <extensions>true</extensions>
-<!--                <configuration>-->
-<!--                    <instructions>-->
-<!--                        <Bundle-SymbolicName>-->
-<!--                            ${project.groupId}.${project.artifactId}-->
-<!--                        </Bundle-SymbolicName>-->
-<!--                        <Bundle-Name>${project.name}</Bundle-Name>-->
-<!--                        <Bundle-Version>${project.version}</Bundle-Version>-->
-<!--                        <Bundle-Activator>-->
-<!--                            osgi.service.impl.GreeterImpl-->
-<!--                        </Bundle-Activator>-->
-<!--                        <Private-Package>-->
-<!--                            osgi.service.impl-->
-<!--                        </Private-Package>-->
-<!--                        <Export-Package>-->
-<!--                            osgi.service.definition-->
-<!--                        </Export-Package>-->
-<!--                    </instructions>-->
-<!--                </configuration>-->
             </plugin>
 
             <plugin>

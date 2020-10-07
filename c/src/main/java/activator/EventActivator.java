@@ -37,7 +37,7 @@ public class EventActivator implements BundleActivator, ServiceListener {
                 serviceReference = serviceEvent.getServiceReference();
                 if (ctx.getService(serviceReference) instanceof MonitoringService) {
                     MonitoringService service = (MonitoringService) (ctx.getService(serviceReference));
-                    service.addMonitoringListener(new MonitoringListener());
+//                    service.addMonitoringListener(new MonitoringListener());
                 }
 
                 if (ctx.getService(serviceReference) instanceof RetrievingService) {
