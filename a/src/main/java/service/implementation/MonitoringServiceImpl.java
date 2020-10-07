@@ -1,27 +1,22 @@
 package service.implementation;
 
-import listener.MonitoringListener;
+import listener.definition.MonitoringListener;
 import service.definition.MonitoringService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Show real-time events flow
  */
 public class MonitoringServiceImpl implements MonitoringService {
 
-    private List<MonitoringListener> listeners = new ArrayList<>();
+    private MonitoringListener monitoringListener;
 
     @Override
     public void addMonitoringListener(MonitoringListener monitoringListener) {
-        listeners.add(monitoringListener);
+        this.monitoringListener = monitoringListener;
     }
 
     @Override
     public void notifyListenerToMonitorEvents() {
-        for (MonitoringListener m : listeners) {
-            m.monitorEvents();
-        }
+        monitoringListener.monitorEvents();
     }
 }

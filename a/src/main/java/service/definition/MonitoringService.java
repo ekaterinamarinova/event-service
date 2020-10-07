@@ -1,6 +1,6 @@
 package service.definition;
 
-import listener.MonitoringListener;
+import listener.definition.MonitoringListener;
 
 public interface MonitoringService {
     void addMonitoringListener(MonitoringListener monitoringListener);
