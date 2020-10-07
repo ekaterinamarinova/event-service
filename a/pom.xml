@@ -30,10 +30,10 @@
                             activator.Activator
                         </Bundle-Activator>
                         <Private-Package>
-                            service.implementation,listener,activator
+                            service.implementation,listener.implementation,activator
                         </Private-Package>
                         <Export-Package>
-                            service.definition,event.definition,event.implementation
+                            service.definition,event.definition,event.implementation,listener.definition
                         </Export-Package>
 
                     </instructions>
