@@ -1,4 +1,4 @@
-package event;
+package event.definition;
 
 public enum EventType {
     SERVICE_REGISTERED("ServiceRegisteredEvent", "A service has just been registered.");

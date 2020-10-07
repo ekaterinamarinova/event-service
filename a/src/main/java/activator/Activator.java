@@ -26,29 +26,28 @@ public class Activator implements BundleActivator {
 
     @Override
     public void start(BundleContext bundleContext) throws Exception {
+        LoggingService loggingService = new LoggingServiceImpl();
+
         loggingServiceServiceRegistration = bundleContext.registerService(
                 LoggingService.class,
-                new LoggingServiceImpl(),
+                loggingService,
                 new Hashtable<>()
         );
-
         loggingServiceServiceReference = loggingServiceServiceRegistration.getReference();
+
+        retrievingServiceServiceRegistration = bundleContext.registerService(
+                RetrievingService.class,
+                new RetrievingServiceImpl(loggingService),
+                new Hashtable<>()
+        );
+        retrievingServiceServiceReference = retrievingServiceServiceRegistration.getReference();
 
         monitoringServiceServiceRegistration = bundleContext.registerService(
                 MonitoringService.class,
                 new MonitoringServiceImpl(),
                 new Hashtable<>()
         );
-
         monitoringServiceServiceReference = monitoringServiceServiceRegistration.getReference();
-
-        retrievingServiceServiceRegistration = bundleContext.registerService(
-                RetrievingService.class,
-                new RetrievingServiceImpl(),
-                new Hashtable<>()
-        );
-
-        retrievingServiceServiceReference = retrievingServiceServiceRegistration.getReference();
     }
 
     @Override

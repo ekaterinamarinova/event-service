@@ -1,6 +1,6 @@
 package event.implementation;
 
-import event.EventType;
+import event.definition.EventType;
 import event.definition.Event;
 
 import java.time.LocalTime;
