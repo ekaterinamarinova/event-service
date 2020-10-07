@@ -1,5 +1,6 @@
 package activator;
 
+import event.definition.EventType;
 import listener.MonitoringListener;
 import org.osgi.framework.*;
 import service.definition.MonitoringService;
@@ -10,7 +11,8 @@ import java.time.LocalTime;
 public class EventActivator implements BundleActivator, ServiceListener {
 
     private BundleContext ctx;
-    private ServiceReference serviceReference;
+    private ServiceReference<MonitoringService> monitoringServiceServiceReference;
+    private ServiceReference<RetrievingService> retrievingServiceServiceReference;
 
     public void start(BundleContext ctx) {
         this.ctx = ctx;
@@ -23,8 +25,10 @@ public class EventActivator implements BundleActivator, ServiceListener {
     }
 
     public void stop(BundleContext bundleContext) {
-        if (serviceReference != null) {
-            ctx.ungetService(serviceReference);
+        if (monitoringServiceServiceReference != null &&
+            retrievingServiceServiceReference != null) {
+            ctx.ungetService(monitoringServiceServiceReference);
+            ctx.ungetService(retrievingServiceServiceReference);
         }
         this.ctx = null;
     }
@@ -34,17 +38,14 @@ public class EventActivator implements BundleActivator, ServiceListener {
         switch (type) {
             case (ServiceEvent.REGISTERED):
                 System.out.println("Notification of service registered.");
-                serviceReference = serviceEvent.getServiceReference();
-                if (ctx.getService(serviceReference) instanceof MonitoringService) {
-                    MonitoringService service = (MonitoringService) (ctx.getService(serviceReference));
-//                    service.addMonitoringListener(new MonitoringListener());
-                }
+                monitoringServiceServiceReference = (ServiceReference<MonitoringService>) serviceEvent.getServiceReference();
+                retrievingServiceServiceReference = (ServiceReference<RetrievingService>) serviceEvent.getServiceReference();
 
-                if (ctx.getService(serviceReference) instanceof RetrievingService) {
-                    RetrievingService service = (RetrievingService) (ctx.getService(serviceReference));
-                    service.retrieve(null, LocalTime.now(), LocalTime.now());
-                }
+                MonitoringService monitoringService = ctx.getService(monitoringServiceServiceReference);
+                monitoringService.addMonitoringListener(new MonitoringListener());
 
+                RetrievingService retrievingService = ctx.getService(retrievingServiceServiceReference);
+                retrievingService.retrieve(EventType.SERVICE_REGISTERED.getType(), LocalTime.now().minusSeconds(120), LocalTime.now());
                 break;
             case (ServiceEvent.UNREGISTERING):
                 System.out.println("Notification of service unregistered.");
