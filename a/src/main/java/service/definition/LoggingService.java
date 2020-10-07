@@ -1,5 +1,10 @@
 package service.definition;
 
+import event.definition.Event;
+
+import java.util.List;
+
 public interface LoggingService {
-    void logEvent(String eventType, String s);
+    void logEvent(Event event);
+    List<Event> getEvents();
 }
