@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>a</artifactId>
+            <artifactId>api</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>

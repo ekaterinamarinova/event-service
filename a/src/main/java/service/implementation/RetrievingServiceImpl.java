@@ -1,8 +1,8 @@
 package service.implementation;
 
-import event.definition.EventType;
-import event.definition.LoggingEvent;
-import service.definition.RetrievingService;
+import definition.event.EventType;
+import definition.event.LoggingEvent;
+import definition.service.RetrievingService;
 import storage.LoggingEventStorage;
 
 import java.time.LocalTime;

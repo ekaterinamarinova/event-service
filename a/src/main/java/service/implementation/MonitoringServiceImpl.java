@@ -1,8 +1,9 @@
 package service.implementation;
 
-import event.definition.LoggingEvent;
-import listener.definition.MonitoringListener;
-import service.definition.MonitoringService;
+
+import definition.event.LoggingEvent;
+import definition.listener.MonitoringListener;
+import definition.service.MonitoringService;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
