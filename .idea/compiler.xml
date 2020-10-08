@@ -9,6 +9,7 @@
         <module name="a" />
         <module name="b" />
         <module name="c" />
+        <module name="api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

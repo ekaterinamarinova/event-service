@@ -12,6 +12,7 @@
         <module>a</module>
         <module>b</module>
         <module>c</module>
+        <module>api</module>
     </modules>
     <!-- mvn:groupId/artifactId/version -->
 
