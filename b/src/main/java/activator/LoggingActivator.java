@@ -1,6 +1,7 @@
 package activator;
 
-import event.implementation.ServiceRegisteredEvent;
+import event.definition.EventType;
+import event.implementation.LoggingEventImpl;
 import org.osgi.framework.*;
 import service.definition.LoggingService;
 
@@ -34,7 +35,7 @@ public class LoggingActivator implements BundleActivator, ServiceListener {
                 System.out.println("Notification of service registered.");
                 serviceReference = serviceEvent.getServiceReference();
                 LoggingService service = (LoggingService) (ctx.getService(serviceReference));
-                service.logEvent(new ServiceRegisteredEvent(LocalTime.now()));
+                service.logEvent(new LoggingEventImpl(EventType.Info, "Service has been registered", LocalTime.now()));
                 break;
             case (ServiceEvent.UNREGISTERING):
                 System.out.println("Notification of service unregistered.");

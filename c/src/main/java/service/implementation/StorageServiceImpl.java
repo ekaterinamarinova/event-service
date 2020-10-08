@@ -1,5 +1,6 @@
 package service.implementation;
 
+import event.definition.LoggingEvent;
 import service.definition.StorageService;
 
 import java.io.File;
@@ -13,12 +14,12 @@ public class StorageServiceImpl implements StorageService {
     private static final String SEPARATOR = "/";
 
     @Override
-    public void storeEventsInCSV(List<String> events) {
+    public void storeEventsInCSV(List<LoggingEvent> events) {
         String pathToFile = SEPARATOR + "resources" + SEPARATOR + FILE_NAME;
 
         try(FileWriter fileWriter = new FileWriter(new File(pathToFile))){
-            for (String e:events) {
-                fileWriter.write(e);
+            for (LoggingEvent e:events) {
+                fileWriter.write(String.valueOf(e));
             }
         } catch (IOException e) {
             e.printStackTrace();

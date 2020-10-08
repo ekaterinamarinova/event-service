@@ -1,7 +1,9 @@
 package service.definition;
 
+import event.definition.LoggingEvent;
+
 import java.util.List;
 
 public interface StorageService {
-    void storeEventsInCSV(List<String> events);
+    void storeEventsInCSV(List<LoggingEvent> events);
 }

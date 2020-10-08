@@ -1,32 +1,27 @@
 package service.implementation;
 
-import event.definition.Event;
-import service.definition.LoggingService;
+import event.definition.EventType;
+import event.definition.LoggingEvent;
 import service.definition.RetrievingService;
+import storage.LoggingEventStorage;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RetrievingServiceImpl implements RetrievingService {
 
-    private LoggingService loggingService;
-    private List<Event> eventTypeList;
+    private final List<LoggingEvent> loggingEventTypeList;
 
-    public RetrievingServiceImpl(LoggingService loggingService) {
-        this.loggingService = loggingService;
+    public RetrievingServiceImpl(LoggingEventStorage loggingEventStorage) {
+        this.loggingEventTypeList = loggingEventStorage.getLoggingEventList();
     }
 
-    public List<String> retrieve(String eventType, LocalTime startTime, LocalTime endTime) {
-        if (loggingService.getEvents() == null) return new ArrayList<>();
-        eventTypeList = loggingService.getEvents();
-
-        return eventTypeList.stream()
-                .filter(e -> e.getEventType().getType().equals(eventType) &&
+    public List<LoggingEvent> retrieve(EventType eventType, LocalTime startTime, LocalTime endTime) {
+        return loggingEventTypeList.stream()
+                .filter(e -> e.getEventType().equals(eventType) &&
                         e.getCreationTime().isAfter(startTime) &&
                         e.getCreationTime().isBefore(endTime))
-                .map(event -> eventType)
                 .collect(Collectors.toList());
     }
 }

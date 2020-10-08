@@ -10,6 +10,7 @@ import service.definition.RetrievingService;
 import service.implementation.LoggingServiceImpl;
 import service.implementation.MonitoringServiceImpl;
 import service.implementation.RetrievingServiceImpl;
+import storage.LoggingEventStorage;
 
 import java.util.Hashtable;
 
@@ -26,8 +27,14 @@ public class Activator implements BundleActivator {
 
     @Override
     public void start(BundleContext bundleContext) throws Exception {
-        LoggingService loggingService = new LoggingServiceImpl();
+        LoggingEventStorage loggingEventStorage = LoggingEventStorage.getInstance();
 
+        LoggingService loggingService = new LoggingServiceImpl(loggingEventStorage);
+        RetrievingService retrievingService = new RetrievingServiceImpl(loggingEventStorage);
+        MonitoringService monitoringService = new MonitoringServiceImpl();
+
+
+        // OSGi Service Registration
         loggingServiceServiceRegistration = bundleContext.registerService(
                 LoggingService.class,
                 loggingService,
@@ -37,14 +44,14 @@ public class Activator implements BundleActivator {
 
         retrievingServiceServiceRegistration = bundleContext.registerService(
                 RetrievingService.class,
-                new RetrievingServiceImpl(loggingService),
+                retrievingService,
                 new Hashtable<>()
         );
         retrievingServiceServiceReference = retrievingServiceServiceRegistration.getReference();
 
         monitoringServiceServiceRegistration = bundleContext.registerService(
                 MonitoringService.class,
-                new MonitoringServiceImpl(),
+                monitoringService,
                 new Hashtable<>()
         );
         monitoringServiceServiceReference = monitoringServiceServiceRegistration.getReference();

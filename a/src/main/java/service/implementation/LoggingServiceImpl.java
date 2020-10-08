@@ -1,23 +1,23 @@
 package service.implementation;
 
-import event.definition.Event;
+import event.definition.LoggingEvent;
 import service.definition.LoggingService;
+import storage.LoggingEventStorage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LoggingServiceImpl implements LoggingService {
 
-    private final List<Event> eventList = new ArrayList<>();
+    private List<LoggingEvent> loggingEvents;
 
-    @Override
-    public void logEvent(Event event) {
-        eventList.add(event);
+    public LoggingServiceImpl(LoggingEventStorage loggingEventStorage) {
+        this.loggingEvents = loggingEventStorage.getLoggingEventList();
     }
 
     @Override
-    public List<Event> getEvents() {
-        return eventList;
+    public void logEvent(LoggingEvent loggingEvent) {
+        loggingEvents.add(loggingEvent);
     }
+
 
 }
