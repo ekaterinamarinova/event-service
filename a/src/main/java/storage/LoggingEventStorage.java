@@ -1,6 +1,7 @@
 package storage;
 
-import event.definition.LoggingEvent;
+
+import definition.event.LoggingEvent;
 
 import java.util.ArrayList;
 import java.util.List;

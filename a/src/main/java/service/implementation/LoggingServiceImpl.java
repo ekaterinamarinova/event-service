@@ -1,7 +1,7 @@
 package service.implementation;
 
-import event.definition.LoggingEvent;
-import service.definition.LoggingService;
+import definition.event.LoggingEvent;
+import definition.service.LoggingService;
 import storage.LoggingEventStorage;
 
 import java.util.List;

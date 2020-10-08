@@ -1,7 +1,7 @@
-package event.implementation;
+package implementation.event;
 
-import event.definition.EventType;
-import event.definition.LoggingEvent;
+import definition.event.EventType;
+import definition.event.LoggingEvent;
 
 import java.time.LocalTime;
 import java.util.Objects;

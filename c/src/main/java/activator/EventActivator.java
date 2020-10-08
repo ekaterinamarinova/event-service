@@ -1,10 +1,10 @@
 package activator;
 
-import event.definition.EventType;
+import definition.event.EventType;
+import definition.service.MonitoringService;
+import definition.service.RetrievingService;
+import definition.service.StorageService;
 import org.osgi.framework.*;
-import service.definition.MonitoringService;
-import service.definition.RetrievingService;
-import service.definition.StorageService;
 import service.implementation.StorageServiceImpl;
 
 import java.time.LocalTime;

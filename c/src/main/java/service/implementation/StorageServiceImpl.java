@@ -1,7 +1,7 @@
 package service.implementation;
 
-import event.definition.LoggingEvent;
-import service.definition.StorageService;
+import definition.event.LoggingEvent;
+import definition.service.StorageService;
 
 import java.io.File;
 import java.io.FileWriter;

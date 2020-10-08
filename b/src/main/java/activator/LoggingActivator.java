@@ -1,9 +1,10 @@
 package activator;
 
-import event.definition.EventType;
-import event.implementation.LoggingEventImpl;
+import definition.event.EventType;
+import definition.service.LoggingService;
+import implementation.event.LoggingEventImpl;
 import org.osgi.framework.*;
-import service.definition.LoggingService;
+
 
 import java.time.LocalTime;
 

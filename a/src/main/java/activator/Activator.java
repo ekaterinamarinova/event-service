@@ -1,12 +1,13 @@
 package activator;
 
+import definition.service.LoggingService;
+import definition.service.MonitoringService;
+import definition.service.RetrievingService;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
-import service.definition.LoggingService;
-import service.definition.MonitoringService;
-import service.definition.RetrievingService;
+
 import service.implementation.LoggingServiceImpl;
 import service.implementation.MonitoringServiceImpl;
 import service.implementation.RetrievingServiceImpl;
