@@ -3,10 +3,13 @@ package activator;
 import definition.event.EventType;
 import definition.service.LoggingService;
 import implementation.event.LoggingEventImpl;
+import implementation.event.Scheduler;
 import org.osgi.framework.*;
 
-
 import java.time.LocalTime;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class LoggingActivator implements BundleActivator, ServiceListener {
 
@@ -30,16 +33,18 @@ public class LoggingActivator implements BundleActivator, ServiceListener {
     }
 
     public void serviceChanged(ServiceEvent serviceEvent) {
+        Scheduler scheduler = new Scheduler();
         int type = serviceEvent.getType();
         switch (type) {
             case (ServiceEvent.REGISTERED):
-                System.out.println("Notification of service registered.");
                 serviceReference = serviceEvent.getServiceReference();
                 LoggingService service = (LoggingService) (ctx.getService(serviceReference));
-                service.logEvent(new LoggingEventImpl(EventType.Info, "Service has been registered", LocalTime.now()));
+                //start a thread and generate 100 events per second
+                scheduler.scheduleEventExecution(() -> service.logEvent(new LoggingEventImpl(
+                        EventType.Info, "Event Registered", LocalTime.now()
+                )), 500, 1000, TimeUnit.MILLISECONDS);
                 break;
             case (ServiceEvent.UNREGISTERING):
-                System.out.println("Notification of service unregistered.");
                 ctx.ungetService(serviceEvent.getServiceReference());
                 break;
             default:
