@@ -1,5 +1,6 @@
 package activator;
 
+import definition.event.LoggingEvent;
 import definition.service.LoggingService;
 import definition.service.MonitoringService;
 import definition.service.RetrievingService;
@@ -8,12 +9,13 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
-import service.implementation.LoggingServiceImpl;
-import service.implementation.MonitoringServiceImpl;
-import service.implementation.RetrievingServiceImpl;
-import storage.LoggingEventStorage;
+import service.LoggingServiceImpl;
+import service.MonitoringServiceImpl;
+import service.RetrievingServiceImpl;
 
 import java.util.Hashtable;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Activator implements BundleActivator {
 
@@ -28,12 +30,12 @@ public class Activator implements BundleActivator {
 
     @Override
     public void start(BundleContext bundleContext) throws Exception {
-        LoggingEventStorage loggingEventStorage = LoggingEventStorage.getInstance();
 
-        LoggingService loggingService = new LoggingServiceImpl(loggingEventStorage);
-        RetrievingService retrievingService = new RetrievingServiceImpl(loggingEventStorage);
-        MonitoringService monitoringService = new MonitoringServiceImpl();
+        final List<LoggingEvent> loggingEventList = new CopyOnWriteArrayList<>();
 
+        RetrievingService retrievingService = new RetrievingServiceImpl(loggingEventList);
+        MonitoringServiceImpl monitoringService = new MonitoringServiceImpl(loggingEventList);
+        LoggingService loggingService = new LoggingServiceImpl(loggingEventList, monitoringService);
 
         // OSGi Service Registration
         loggingServiceServiceRegistration = bundleContext.registerService(
