@@ -3,14 +3,10 @@ package activator;
 import definition.event.EventType;
 import definition.service.MonitoringService;
 import definition.service.RetrievingService;
-import implementation.event.LoggingEventImpl;
-import implementation.event.Scheduler;
 import org.osgi.framework.*;
 import service.StorageService;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -49,8 +45,6 @@ public class EventActivator implements BundleActivator, ServiceListener {
         int type = serviceEvent.getType();
         switch (type) {
             case (ServiceEvent.REGISTERED):
-                Scheduler scheduler = new Scheduler();
-
                 monitoringServiceServiceReference = (ServiceReference<MonitoringService>) serviceEvent.getServiceReference();
                 retrievingServiceServiceReference = (ServiceReference<RetrievingService>) serviceEvent.getServiceReference();
 
@@ -63,7 +57,8 @@ public class EventActivator implements BundleActivator, ServiceListener {
                 // TODO retrieve and export to csv in a separate thread.
                 RetrievingService retrievingService = ctx.getService(retrievingServiceServiceReference);
 
-                scheduler.scheduleEventExecution(() -> retrievingService.retrieve(
+                ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
+                scheduledExecutorService.scheduleAtFixedRate(() -> retrievingService.retrieve(
                         EventType.Info, LocalTime.now().minusSeconds(120), LocalTime.now()
                 ), 1, 5, TimeUnit.MINUTES);
 

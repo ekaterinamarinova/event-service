@@ -3,7 +3,6 @@ package activator;
 import definition.event.EventType;
 import definition.service.LoggingService;
 import implementation.event.LoggingEventImpl;
-import implementation.event.Scheduler;
 import org.osgi.framework.*;
 
 import java.time.LocalTime;
@@ -33,14 +32,14 @@ public class LoggingActivator implements BundleActivator, ServiceListener {
     }
 
     public void serviceChanged(ServiceEvent serviceEvent) {
-        Scheduler scheduler = new Scheduler();
         int type = serviceEvent.getType();
         switch (type) {
             case (ServiceEvent.REGISTERED):
                 serviceReference = serviceEvent.getServiceReference();
                 LoggingService service = (LoggingService) (ctx.getService(serviceReference));
                 //start a thread and generate 100 events per second
-                scheduler.scheduleEventExecution(() -> service.logEvent(new LoggingEventImpl(
+                ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
+                scheduledExecutorService.scheduleAtFixedRate(() -> service.logEvent(new LoggingEventImpl(
                         EventType.Info, "Event Registered", LocalTime.now()
                 )), 500, 1000, TimeUnit.MILLISECONDS);
                 break;
