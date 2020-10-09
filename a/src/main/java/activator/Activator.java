@@ -29,12 +29,11 @@ public class Activator implements BundleActivator {
     private ServiceRegistration<RetrievingService> retrievingServiceServiceRegistration;
 
     @Override
-    public void start(BundleContext bundleContext) throws Exception {
-
-        final List<LoggingEvent> loggingEventList = new CopyOnWriteArrayList<>();
+    public void start(BundleContext bundleContext) {
+        List<LoggingEvent> loggingEventList = new CopyOnWriteArrayList<>();
 
         RetrievingService retrievingService = new RetrievingServiceImpl(loggingEventList);
-        MonitoringServiceImpl monitoringService = new MonitoringServiceImpl(loggingEventList);
+        MonitoringServiceImpl monitoringService = new MonitoringServiceImpl();
         LoggingService loggingService = new LoggingServiceImpl(loggingEventList, monitoringService);
 
         // OSGi Service Registration
@@ -61,7 +60,7 @@ public class Activator implements BundleActivator {
     }
 
     @Override
-    public void stop(BundleContext bundleContext) throws Exception {
+    public void stop(BundleContext bundleContext) {
         loggingServiceServiceRegistration.unregister();
         monitoringServiceServiceRegistration.unregister();
         retrievingServiceServiceRegistration.unregister();

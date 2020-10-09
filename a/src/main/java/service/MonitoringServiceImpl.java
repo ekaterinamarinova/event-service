@@ -14,11 +14,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class MonitoringServiceImpl implements MonitoringService {
 
     private final List<MonitoringListener> monitoringListeners;
-    private final List<LoggingEvent> loggingEvents;
 
-    public MonitoringServiceImpl(List<LoggingEvent> loggingEvents) {
+    public MonitoringServiceImpl() {
         monitoringListeners = new CopyOnWriteArrayList<>();
-        this.loggingEvents = loggingEvents;
     }
 
     @Override
@@ -26,11 +24,9 @@ public class MonitoringServiceImpl implements MonitoringService {
         monitoringListeners.add(monitoringListener);
     }
 
-    public void notifyMonitoringListeners() {
+    public void notifyMonitoringListeners(LoggingEvent event) {
         for (MonitoringListener m : monitoringListeners) {
-            for (LoggingEvent event : loggingEvents) {
-                m.eventReceived(event);
-            }
+            m.eventReceived(event);
         }
     }
 }

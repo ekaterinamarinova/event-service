@@ -18,7 +18,7 @@ public class LoggingServiceImpl implements LoggingService {
     @Override
     public synchronized void logEvent(LoggingEvent loggingEvent) {
         loggingEvents.add(loggingEvent);
-        monitoringService.notifyMonitoringListeners();
+        monitoringService.notifyMonitoringListeners(loggingEvent);
     }
 
 }
