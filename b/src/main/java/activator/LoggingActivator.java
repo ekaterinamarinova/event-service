@@ -41,7 +41,7 @@ public class LoggingActivator implements BundleActivator, ServiceListener {
                 ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
                 scheduledExecutorService.scheduleAtFixedRate(() -> service.logEvent(new LoggingEventImpl(
                         EventType.Info, "Event Registered", LocalTime.now()
-                )), 500, 1000, TimeUnit.MILLISECONDS);
+                )), 0, 1000, TimeUnit.MILLISECONDS);
                 break;
             case (ServiceEvent.UNREGISTERING):
                 ctx.ungetService(serviceEvent.getServiceReference());

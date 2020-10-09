@@ -54,13 +54,13 @@ public class EventActivator implements BundleActivator, ServiceListener {
                         )
                 );
 
-                // TODO retrieve and export to csv in a separate thread.
                 RetrievingService retrievingService = ctx.getService(retrievingServiceServiceReference);
 
                 ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
-                scheduledExecutorService.scheduleAtFixedRate(() -> retrievingService.retrieve(
-                        EventType.Info, LocalTime.now().minusSeconds(120), LocalTime.now()
-                ), 1, 5, TimeUnit.MINUTES);
+                scheduledExecutorService.scheduleAtFixedRate(() ->
+                    storageService.storeEventsInCSV(retrievingService.retrieve(
+                            EventType.Info, LocalTime.now().minusSeconds(120), LocalTime.now()
+                    )), 0, 5, TimeUnit.MINUTES);
 
                 break;
             case (ServiceEvent.UNREGISTERING):
