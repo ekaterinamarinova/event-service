@@ -58,9 +58,15 @@ public class EventActivator implements BundleActivator, ServiceListener {
 
                 ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
                 scheduledExecutorService.scheduleAtFixedRate(() ->
-                    storageService.storeEventsInCSV(retrievingService.retrieve(
-                            EventType.Info, LocalTime.now().minusSeconds(120), LocalTime.now()
-                    )), 0, 5, TimeUnit.MINUTES);
+                {
+                    try {
+                        storageService.storeEventsInCSV(retrievingService.retrieve(
+                                EventType.Info, LocalTime.now().minusSeconds(120), LocalTime.now()
+                        ));
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }, 0, 5, TimeUnit.MINUTES);
 
                 break;
             case (ServiceEvent.UNREGISTERING):
