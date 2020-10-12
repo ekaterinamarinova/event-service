@@ -39,7 +39,7 @@
                             activator.EventActivator
                         </Bundle-Activator>
                         <Private-Package>
-                            service
+                            storageService
                         </Private-Package>
                     </instructions>
                 </configuration>

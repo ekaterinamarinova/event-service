@@ -1,20 +1,21 @@
 package activator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import definition.event.EventType;
 import definition.service.MonitoringService;
 import definition.service.RetrievingService;
 import org.osgi.framework.*;
-import service.StorageService;
+import storageService.StorageService;
 
 import java.time.LocalTime;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 public class EventActivator implements BundleActivator, ServiceListener {
 
-    private static final Logger LOGGER = Logger.getLogger(EventActivator.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventActivator.class);
 
     private BundleContext ctx;
     private final StorageService storageService = new StorageService();
@@ -49,7 +50,7 @@ public class EventActivator implements BundleActivator, ServiceListener {
                 retrievingServiceServiceReference = (ServiceReference<RetrievingService>) serviceEvent.getServiceReference();
 
                 MonitoringService monitoringService = ctx.getService(monitoringServiceServiceReference);
-                monitoringService.addMonitoringListener(event -> LOGGER.info(
+                monitoringService.addMonitoringListener(event -> LOGGER.debug(
                         "Event received: " + event.getEventType() + " with message: " + event.getMessage()
                         )
                 );
