@@ -15,7 +15,6 @@
         <module>api</module>
     </modules>
     <!-- mvn:groupId/artifactId/version -->
-
     <packaging>pom</packaging>
 
     <dependencies>

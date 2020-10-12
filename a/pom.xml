@@ -21,7 +21,6 @@
         </dependency>
     </dependencies>
 
-    
     <build>
     <plugins>
         <plugin>
@@ -40,12 +39,8 @@
                             activator.Activator
                         </Bundle-Activator>
                         <Private-Package>
-                            service.implementation,listener.implementation,activator
+                            service
                         </Private-Package>
-                        <Export-Package>
-                            service.definition,event.definition,event.implementation,listener.definition
-                        </Export-Package>
-
                     </instructions>
                 </configuration>
         </plugin>

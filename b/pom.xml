@@ -39,12 +39,6 @@
                         <Bundle-Activator>
                             activator.LoggingActivator
                         </Bundle-Activator>
-                        <Private-Package>
-                            service.implementation,activator
-                        </Private-Package>
-                        <Export-Package>
-                            service.definition
-                        </Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
