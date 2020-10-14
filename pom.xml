@@ -13,6 +13,7 @@
         <module>b</module>
         <module>c</module>
         <module>api</module>
+        <module>feature</module>
     </modules>
     <!-- mvn:groupId/artifactId/version -->
     <packaging>pom</packaging>

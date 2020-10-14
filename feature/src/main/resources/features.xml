@@ -1,0 +1,8 @@
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.3.0" name="events">
+    <feature name="events" version='${project.version}'>
+        <bundle start-level="87" dependency="true">mvn:org.example/api/${project.version}</bundle>
+        <bundle start-level="88">mvn:org.example/a/${project.version}</bundle>
+        <bundle start-level="90">mvn:org.example/b/${project.version}</bundle>
+        <bundle start-level="89">mvn:org.example/c/${project.version}</bundle>
+    </feature>
+</features>
