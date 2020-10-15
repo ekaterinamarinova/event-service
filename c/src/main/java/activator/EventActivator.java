@@ -27,6 +27,19 @@ public class EventActivator implements BundleActivator {
     public void start(BundleContext ctx) {
         this.ctx = ctx;
         startTrack(ctx);
+    }
+
+    public void stop(BundleContext ctx) {
+        stopTrack();
+        this.ctx = null;
+    }
+
+    private void startTrack(BundleContext ctx) {
+        monitoringServiceTracker = new ServiceTracker<>(ctx, MonitoringService.class, null);
+        retrievingServiceTracker = new ServiceTracker<>(ctx, RetrievingService.class, null);
+
+        monitoringServiceTracker.open();
+        retrievingServiceTracker.open();
 
         if (!monitoringServiceTracker.isEmpty()) {
             monitoringServiceTracker.getService().addMonitoringListener(event -> LOGGER.info(
@@ -48,19 +61,6 @@ public class EventActivator implements BundleActivator {
                 }
             }, 0, 5, TimeUnit.MINUTES);
         }
-    }
-
-    public void stop(BundleContext ctx) {
-        stopTrack();
-        this.ctx = null;
-    }
-
-    private void startTrack(BundleContext ctx) {
-        monitoringServiceTracker = new ServiceTracker<>(ctx, MonitoringService.class, null);
-        retrievingServiceTracker = new ServiceTracker<>(ctx, RetrievingService.class, null);
-
-        monitoringServiceTracker.open();
-        retrievingServiceTracker.open();
     }
 
     private void stopTrack() {
