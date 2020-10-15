@@ -3,7 +3,8 @@ package activator;
 import definition.event.EventType;
 import definition.service.LoggingService;
 import implementation.event.LoggingEventImpl;
-import org.osgi.framework.*;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
 import java.time.LocalTime;

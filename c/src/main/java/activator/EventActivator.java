@@ -1,12 +1,13 @@
 package activator;
 
 import definition.event.EventType;
+import definition.service.MonitoringService;
+import definition.service.RetrievingService;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import definition.service.MonitoringService;
-import definition.service.RetrievingService;
-import org.osgi.framework.*;
 import storageService.StorageService;
 
 import java.time.LocalTime;
@@ -67,6 +68,5 @@ public class EventActivator implements BundleActivator {
         monitoringServiceTracker.close();
         retrievingServiceTracker.close();
     }
-
 
 }

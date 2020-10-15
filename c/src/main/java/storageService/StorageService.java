@@ -25,7 +25,7 @@ public class StorageService {
                     .map(Object::toString)
                     .collect(Collectors.toList());
 
-            Files.write(Paths.get(pathToFile), toStringEvents,StandardOpenOption.APPEND);
+            Files.write(Paths.get(pathToFile), toStringEvents, StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
