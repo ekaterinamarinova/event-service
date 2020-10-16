@@ -1,4 +1,4 @@
-package storageService;
+package service;
 
 import definition.event.LoggingEvent;
 

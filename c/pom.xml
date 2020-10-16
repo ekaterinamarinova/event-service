@@ -35,11 +35,8 @@
                         </Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>
-                            activator.EventActivator
-                        </Bundle-Activator>
                         <Private-Package>
-                            storageService
+                            service
                         </Private-Package>
                     </instructions>
                 </configuration>

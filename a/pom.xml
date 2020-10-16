@@ -35,9 +35,6 @@
                         </Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>
-                            activator.Activator
-                        </Bundle-Activator>
                         <Private-Package>
                             service
                         </Private-Package>

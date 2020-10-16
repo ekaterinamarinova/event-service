@@ -36,9 +36,6 @@
                         </Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>
-                            activator.LoggingActivator
-                        </Bundle-Activator>
                     </instructions>
                 </configuration>
             </plugin>
