@@ -24,7 +24,7 @@ public class ScheduledEventService {
         this.monitoringService = monitoringService;
     }
 
-    private void start() {
+    public void start() {
         monitoringService.addMonitoringListener(event -> LOGGER.info(
                 "Event received: " + event.getEventType() + " with message: " + event.getMessage()
                 )

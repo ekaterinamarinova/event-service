@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns='http://www.osgi.org/xmlns/blueprint/v1.0.0'>
+
+    <bean id="scheduledEvent" class="service.ScheduledEventService" init-method="start">
+        <argument ref="monitoringRef"/>
+        <argument ref="retrievingRef"/>
+    </bean>
+
+    <reference id="monitoringRef" interface="definition.service.MonitoringService"/>
+    <reference id="retrievingRef" interface="definition.service.RetrievingService"/>
+
+    <service id="monitoringService" ref="monitoringRef"/>
+    <service id="retrievingService" ref="retrievingRef"/>
+</blueprint>

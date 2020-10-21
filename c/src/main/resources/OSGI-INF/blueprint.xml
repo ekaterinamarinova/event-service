@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns='http://www.osgi.org/xmlns/blueprint/v1.0.0'>
+
+    <bean id="logEvent" class="implementation.event.LoggingEventImpl">
+        <argument ref="monitoringService"/>
+    </bean>
+
+    <reference id="monitoringRef" interface="definition.service.MonitoringService"/>
+    <service id="monitoringService" interface="definition.service.MonitoringService"/>
+</blueprint>
