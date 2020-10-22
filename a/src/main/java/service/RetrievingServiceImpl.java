@@ -11,9 +11,7 @@ import java.util.stream.Collectors;
 
 public class RetrievingServiceImpl implements RetrievingService {
 
-    private List<LoggingEvent> loggingEventTypeList;
-
-    public RetrievingServiceImpl() {}
+    private final List<LoggingEvent> loggingEventTypeList;
 
     public RetrievingServiceImpl(List<LoggingEvent> loggingEvents) {
         this.loggingEventTypeList = loggingEvents;
@@ -21,9 +19,10 @@ public class RetrievingServiceImpl implements RetrievingService {
 
     public synchronized List<LoggingEvent> retrieve(EventType eventType,
                                                     LocalTime startTime,
-                                                    LocalTime endTime) throws IllegalAccessException {
+                                                    LocalTime endTime) throws Exception {
         if (Objects.isNull(startTime) || Objects.isNull(endTime))
-            throw new IllegalAccessException("Method parameters cannot be null!");
+            throw new IllegalArgumentException("Method parameters cannot be null!");
+        if (Objects.isNull(loggingEventTypeList)) throw new Exception("List mustn't be empty!");
         return loggingEventTypeList.stream()
                 .filter(e -> e.getEventType().equals(eventType) &&
                         e.getCreationTime().isAfter(startTime) &&

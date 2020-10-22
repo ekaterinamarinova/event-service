@@ -7,15 +7,11 @@ import java.util.List;
 
 public class LoggingServiceImpl implements LoggingService {
 
-    private List<LoggingEvent> loggingEvents;
+    private final List<LoggingEvent> loggingEvents;
     private final MonitoringServiceImpl monitoringService;
 
     public LoggingServiceImpl(List<LoggingEvent> loggingEvents, MonitoringServiceImpl monitoringService) {
         this.loggingEvents = loggingEvents;
-        this.monitoringService = monitoringService;
-    }
-
-    public LoggingServiceImpl(MonitoringServiceImpl monitoringService) {
         this.monitoringService = monitoringService;
     }
 
