@@ -37,7 +37,7 @@ public class ScheduledEventService {
                 storageService.storeEventsInCSV(retrievingService.retrieve(
                         EventType.Info, LocalTime.now().minusSeconds(120), LocalTime.now()
                 ));
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }, 0, 5, TimeUnit.MINUTES);
