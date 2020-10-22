@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns='http://www.osgi.org/xmlns/blueprint/v1.0.0'>
+
+    <bean id="monitoring"   class="service.MonitoringServiceImpl"/>
+    <bean id="retrieve"     class="service.RetrievingServiceImpl"/>
+    <bean id="logging"      class="service.LoggingServiceImpl" >
+        <argument ref="monitoring"/>
+    </bean>
+
+    <service id="loggingService"    ref="logging"    interface="definition.service.LoggingService"/>
+    <service id="monitoringService" ref="monitoring" interface="definition.service.MonitoringService"/>
+    <service id="retrievingService" ref="retrieve"   interface="definition.service.RetrievingService"/>
+
+</blueprint>
