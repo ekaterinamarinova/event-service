@@ -2,10 +2,14 @@
 <blueprint xmlns='http://www.osgi.org/xmlns/blueprint/v1.0.0'>
 
     <bean id="monitoring"   class="service.MonitoringServiceImpl"/>
-    <bean id="retrieve"     class="service.RetrievingServiceImpl"/>
+    <bean id="retrieve"     class="service.RetrievingServiceImpl">
+        <argument ref="list"/>
+    </bean>
     <bean id="logging"      class="service.LoggingServiceImpl" >
         <argument ref="monitoring"/>
+        <argument ref="list"/>
     </bean>
+    <bean id="list" class="java.util.ArrayList" destroy-method="clear"/>
 
     <service id="loggingService"    ref="logging"    interface="definition.service.LoggingService"/>
     <service id="monitoringService" ref="monitoring" interface="definition.service.MonitoringService"/>
