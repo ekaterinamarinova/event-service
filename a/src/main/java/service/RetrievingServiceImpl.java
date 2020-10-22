@@ -11,7 +11,9 @@ import java.util.stream.Collectors;
 
 public class RetrievingServiceImpl implements RetrievingService {
 
-    private final List<LoggingEvent> loggingEventTypeList;
+    private List<LoggingEvent> loggingEventTypeList;
+
+    public RetrievingServiceImpl() {}
 
     public RetrievingServiceImpl(List<LoggingEvent> loggingEvents) {
         this.loggingEventTypeList = loggingEvents;
