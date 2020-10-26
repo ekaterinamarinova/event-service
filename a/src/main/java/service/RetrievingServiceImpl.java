@@ -3,30 +3,35 @@ package service;
 import definition.event.EventType;
 import definition.event.LoggingEvent;
 import definition.service.RetrievingService;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Component(service = RetrievingService.class, immediate = true)
 public class RetrievingServiceImpl implements RetrievingService {
 
-    private final List<LoggingEvent> loggingEventTypeList;
+    private List<LoggingEvent> loggingEvents;
 
-    public RetrievingServiceImpl(List<LoggingEvent> loggingEvents) {
-        this.loggingEventTypeList = loggingEvents;
-    }
-
+    @Override
     public synchronized List<LoggingEvent> retrieve(EventType eventType,
                                                     LocalTime startTime,
                                                     LocalTime endTime) throws Exception {
         if (Objects.isNull(startTime) || Objects.isNull(endTime))
             throw new IllegalArgumentException("Method parameters cannot be null!");
-        if (Objects.isNull(loggingEventTypeList)) throw new Exception("List mustn't be empty!");
-        return loggingEventTypeList.stream()
+        if (Objects.isNull(loggingEvents)) throw new Exception("List mustn't be empty!");
+        return loggingEvents.stream()
                 .filter(e -> e.getEventType().equals(eventType) &&
                         e.getCreationTime().isAfter(startTime) &&
                         e.getCreationTime().isBefore(endTime))
                 .collect(Collectors.toList());
+    }
+
+    @Reference
+    public void setLoggingEvents(List<LoggingEvent> loggingEvents) {
+        this.loggingEvents = loggingEvents;
     }
 }

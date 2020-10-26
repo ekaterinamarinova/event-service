@@ -3,6 +3,9 @@ package service;
 import definition.event.EventType;
 import definition.service.MonitoringService;
 import definition.service.RetrievingService;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,19 +14,18 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+@Component(immediate = true)
 public class ScheduledEventService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledEventService.class);
     private final StorageService storageService = new StorageService();
 
-    private final RetrievingService retrievingService;
-    private final MonitoringService monitoringService;
+    @Reference
+    private RetrievingService retrievingService;
+    @Reference
+    private MonitoringService monitoringService;
 
-    public ScheduledEventService(RetrievingService retrievingService, MonitoringService monitoringService) {
-        this.retrievingService = retrievingService;
-        this.monitoringService = monitoringService;
-    }
-
+    @Activate
     public void start() {
         monitoringService.addMonitoringListener(event -> LOGGER.info(
                 "Event received: " + event.getEventType() + " with message: " + event.getMessage()
