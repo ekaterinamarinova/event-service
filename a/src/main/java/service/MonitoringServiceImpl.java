@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Show real-time events flow
  */
-@Component(service = MonitoringService.class, immediate = true)
+@Component(service = MonitoringService.class)
 public class MonitoringServiceImpl implements MonitoringService {
 
     private final List<MonitoringListener> monitoringListeners;

@@ -10,7 +10,9 @@ import java.util.List;
 @Component(service = LoggingService.class)
 public class LoggingServiceImpl implements LoggingService {
 
+    @Reference(unbind = "clear")
     private List<LoggingEvent> loggingEvents;
+    @Reference
     private MonitoringServiceImpl monitoringService;
 
     @Override
@@ -19,14 +21,5 @@ public class LoggingServiceImpl implements LoggingService {
         monitoringService.notifyMonitoringListeners(loggingEvent);
     }
 
-    @Reference
-    public void setMonitoringService(MonitoringServiceImpl monitoringService) {
-        this.monitoringService = monitoringService;
-    }
-
-    @Reference
-    public void setLoggingEvents(List<LoggingEvent> loggingEvents) {
-        this.loggingEvents = loggingEvents;
-    }
 
 }

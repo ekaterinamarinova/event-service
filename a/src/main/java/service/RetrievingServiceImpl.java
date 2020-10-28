@@ -11,9 +11,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Component(service = RetrievingService.class, immediate = true)
+@Component(service = RetrievingService.class)
 public class RetrievingServiceImpl implements RetrievingService {
 
+    @Reference(unbind = "clear")
     private List<LoggingEvent> loggingEvents;
 
     @Override
@@ -30,8 +31,4 @@ public class RetrievingServiceImpl implements RetrievingService {
                 .collect(Collectors.toList());
     }
 
-    @Reference
-    public void setLoggingEvents(List<LoggingEvent> loggingEvents) {
-        this.loggingEvents = loggingEvents;
-    }
 }

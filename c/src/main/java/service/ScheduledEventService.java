@@ -14,7 +14,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-@Component(immediate = true)
+@Component
 public class ScheduledEventService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledEventService.class);
