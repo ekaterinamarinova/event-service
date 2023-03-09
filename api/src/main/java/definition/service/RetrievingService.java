@@ -8,5 +8,5 @@ import java.time.LocalTime;
 import java.util.List;
 
 public interface RetrievingService {
-    List<LoggingEvent> retrieve(EventType eventType, LocalTime startTime, LocalTime endTime) throws IllegalAccessException;
+    List<LoggingEvent> retrieve(EventType eventType, LocalTime startTime, LocalTime endTime) throws Exception;
 }

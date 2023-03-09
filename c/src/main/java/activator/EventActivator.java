@@ -1,6 +1,7 @@
 package activator;
 
 import definition.event.EventType;
+import definition.event.LoggingEvent;
 import definition.service.MonitoringService;
 import definition.service.RetrievingService;
 import org.osgi.framework.BundleActivator;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import storageService.StorageService;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -19,20 +21,17 @@ public class EventActivator implements BundleActivator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventActivator.class);
 
-    private BundleContext ctx;
     private final StorageService storageService = new StorageService();
 
     private ServiceTracker<RetrievingService, RetrievingService> retrievingServiceTracker;
     private ServiceTracker<MonitoringService, MonitoringService> monitoringServiceTracker;
 
     public void start(BundleContext ctx) {
-        this.ctx = ctx;
         startTrack(ctx);
     }
 
     public void stop(BundleContext ctx) {
         stopTrack();
-        this.ctx = null;
     }
 
     private void startTrack(BundleContext ctx) {
@@ -43,7 +42,8 @@ public class EventActivator implements BundleActivator {
         retrievingServiceTracker.open();
 
         if (!monitoringServiceTracker.isEmpty()) {
-            monitoringServiceTracker.getService().addMonitoringListener(event -> LOGGER.info(
+            monitoringServiceTracker.getService().addMonitoringListener(
+                    event -> LOGGER.info(
                     "Event received: " + event.getEventType() + " with message: " + event.getMessage()
                     )
             );
@@ -54,13 +54,14 @@ public class EventActivator implements BundleActivator {
             scheduledExecutorService.scheduleAtFixedRate(() ->
             {
                 try {
-                    storageService.storeEventsInCSV(retrievingServiceTracker.getService().retrieve(
-                            EventType.Info, LocalTime.now().minusSeconds(120), LocalTime.now()
-                    ));
-                } catch (IllegalAccessException e) {
+                    List<LoggingEvent> eventList = retrievingServiceTracker.getService()
+                            .retrieve(EventType.Info, LocalTime.now().minusSeconds(120), LocalTime.now());
+
+                    storageService.storeEventsInCSV(eventList);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }, 0, 5, TimeUnit.MINUTES);
+            }, 0, 1, TimeUnit.MINUTES);
         }
     }
 

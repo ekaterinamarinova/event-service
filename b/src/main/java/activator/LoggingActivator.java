@@ -13,12 +13,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class LoggingActivator implements BundleActivator {
-
-    private BundleContext ctx;
     private ServiceTracker<LoggingService, LoggingService> loggingServiceTracker;
 
     public void start(BundleContext ctx) {
-        this.ctx = ctx;
         loggingServiceTracker = new ServiceTracker<>(ctx, LoggingService.class, null);
         loggingServiceTracker.open();
 
@@ -30,8 +27,7 @@ public class LoggingActivator implements BundleActivator {
         }
     }
 
-    public void stop(BundleContext bundleContext) {
+    public void stop(BundleContext ctx) {
         this.loggingServiceTracker.close();
-        this.ctx = null;
     }
 }

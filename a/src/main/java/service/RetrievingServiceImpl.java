@@ -19,9 +19,9 @@ public class RetrievingServiceImpl implements RetrievingService {
 
     public synchronized List<LoggingEvent> retrieve(EventType eventType,
                                                     LocalTime startTime,
-                                                    LocalTime endTime) throws IllegalAccessException {
+                                                    LocalTime endTime) throws Exception {
         if (Objects.isNull(startTime) || Objects.isNull(endTime))
-            throw new IllegalAccessException("Method parameters cannot be null!");
+            throw new Exception("Method parameters cannot be null!");
         return loggingEventTypeList.stream()
                 .filter(e -> e.getEventType().equals(eventType) &&
                         e.getCreationTime().isAfter(startTime) &&
